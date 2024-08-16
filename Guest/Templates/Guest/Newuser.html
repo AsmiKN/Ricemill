@@ -1,0 +1,101 @@
+{% extends 'Guest/Header.html' %}
+{% block content %}
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Newuser</title>
+    </head>
+    <body>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table border="2" align="center">
+                <tr>
+                    <th colspan="4">New User</th>
+                </tr>
+                <td>District</td>
+                <td>
+                    <select name="sel_district" id="sel_district">
+                        <option value="">...Select...</option>
+                        {% for i in districtdata %}
+                        <option  value="{{i.id}}">{{i.district_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                <tr>
+                <td>Place</td>
+                <td>
+                    <select name="sel_place" id="sel_place">
+                        <option value="">...Select...</option>
+                        
+                    </select>
+                </td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" name="txtname" placeholder="Enter the Name" required value="{{editdata.newuser_name}}"></td>
+                </tr>
+                <tr>
+                    <td>Gender</td>
+                    <td><input type="radio" name="gender" value="male">Male
+                    <input type="radio" name="gender" value="female">Female</td>
+                </tr>
+                <tr>
+                        <td>contact</td>
+                        <td><input type="text" name="txtcontact" placeholder="Enter the Contact" required value="{{editdata.newuser_contact}}"></td><br>
+                    </tr>
+                    <tr>
+                        <td>email</td>
+                        <td><input type="text" name="txtemail" placeholder="Enter the email" required value="{{editdata.newuser_email}}"></td><br>
+                    </tr>
+                    <tr>
+                        <td>password</td>
+                        <td><input type="password" name="txtpassword" placeholder="Enter the password" required value="{{editdata.newuser_password}}"></td><br>
+                    </tr>
+                    <tr>
+                        <td>address</td>
+                        <td><input type="text" name="txtaddress" placeholder="Enter the address" required value="{{editdata.newuser_address}}"></td><br>
+                    </tr>    
+                    <tr>
+                        <td>Photo</td>
+                        <td><input type="file" name="fileImage"  required ></td>
+                    </tr>
+                    <tr>
+                        <td>Proof</td>
+                        <td><input type="file" name="fileProof"  required ></td>
+                   </tr>
+
+
+                <tr>
+                    <th colspan="4">
+                        <input type="submit" value="Submit">
+                        <input type="reset" value="Cancel">
+                    </th>
+                </tr>
+            </table>
+        </form>
+    </body>
+    </html>  
+</body>
+
+
+</body>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#sel_district").change(function () {
+        var did = $(this).val();
+        var ur = "{% url 'Guest:ajaxplace' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                $("#sel_place").html(data);
+            },
+        });
+    });
+</script>
+{% endblock content %}

@@ -1,0 +1,102 @@
+{% extends 'Staff/Header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container-fluid {
+            margin: 20px auto;
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .d-profile {
+            text-align: center;
+        }
+
+        .d-card {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .d-card td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .d-card img {
+            border-radius: 50%;
+        }
+
+        .d-card-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #282829;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+        .d-card-button:hover {
+            background-color: #2b2c2e;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <h1>My Profile</h1>
+        <div class="d-profile">
+            <table align="center" style="color: black;" cellpadding="10px" class="d-card">
+                <tr>
+                    <td colspan="2" align="center"><img src="{{data.staff_photo.url}}" alt="" width="150" height="150"></td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td>{{data.staff_name}}</td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td>{{data.staff_address}}</td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td>{{data.staff_email}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><a class="d-card-button" href="{% url 'Staff:editprofile' %}">Edit Profile</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center">
+                        <a class="d-card-button" href="{% url 'Staff:changepassword' %}">Change password</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
+{% endblock content %}

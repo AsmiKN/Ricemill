@@ -1,0 +1,123 @@
+{% extends 'Administrator/Header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rawmaterial</title>
+  </head>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    h1 {
+        text-align: center;
+        margin-top: 20px;
+    }
+    form {
+        width: 80%;
+        margin: 0 auto;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+    input[type="text"],
+    select,
+    input[type="file"] {
+        width: 100%;
+        padding: 8px;
+        margin: 5px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    input[type="submit"],
+    input[type="reset"] {
+        width: 48%;
+        background-color: #505450;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        float: left;
+    }
+    input[type="submit"]:hover,
+    input[type="reset"]:hover {
+        background-color: #404240;
+    }
+    img {
+        max-width: 50px;
+        max-height: 50px;
+    }
+    th, td, input, select {
+        font-size: 14px;
+    }
+</style>
+  <body>
+    <center><h1>RAWMATERIAL</h1></center>
+  
+    <form method="POST">
+      {% csrf_token %}
+      <table align="center" border="1">
+        <!-- <th colspan="4">RAWMATERIAL</th> -->
+        <tr>
+          <td>Rawmaterial name</td>
+          <td>
+            <input
+              type="text"
+              name="txtname"
+              placeholder="Enter the rawmaterial name"
+              required
+              value="{{ editdata.rawmaterial}}"
+            />
+          </td>
+        </tr>
+        <tr>
+          <th colspan="4">
+            <input type="submit" value="Save" name="btnsave" />
+            <input type="reset" value="Cancel" name="btncancel" />
+          </th>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
+<table border="1" align="center" cellpadding="10">
+  <tr>
+    <th>Sl.No</th>
+    <th>Rawmaterial name</th>
+    <th>Action</th>
+  </tr>
+  {% for i in data %}
+  <tr>
+    <td>{{forloop.counter}}</td>
+    <td>{{i.rawmaterial}}</td>
+    <td>
+      <a href="{% url 'Administrator:delrawmaterial' i.id %}">Delete</a>
+      <a href="{% url 'Administrator:rawmaterialupdate' i.id %}">Edit</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% endblock content %}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Admin Registration</title>
+    </head>
+    <body>
+        <a href="{% url 'Administrator:LoadingHomePage' %}">Home</a>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table border="2" align="center">
+                <tr>
+                    <th colspan="4"> Admin Registration  </th>
+                </tr>
+                <tr>
+                    <td>Full Name:</td>
+                    <td><input type="text" name="txtname" placeholder="Enter Full Name" required></td><br>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="text" name="txtemail" placeholder="Enter Email id" required></td><br>
+                </tr>
+                <tr>
+                    <td>Phno:</td>
+                    <td><input type="text" name="txtphone" placeholder="Enter Phone Number" required></td><br>
+                </tr>
+                <tr>
+                    <td>Password:</td>
+                    <td><input type="text" name="txtpassword" placeholder="Enter the Password" required></td><br>
+                </tr>
+                <tr>
+                    <td>Photo:</td>
+                    <td><input type="file" name="fileImage"  required ></td>
+                </tr>
+               
+                <tr>
+                    <th colspan="4">
+                        <input type="submit" value="Submit">
+                        <input type="reset" value="Cancel">
+                    </th>
+                </tr>
+            </table>
+    </body>
+    </html>  
+</body>
+</html>
+<table border="1" align="center" cellpadding="10">
+    <tr>
+        <th>Sl.No</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Photo</th>
+        <th>Action</th>
+    </tr>
+    {% for i in data %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.admin_name}}</td>
+        <td>{{i.admin_email}}</td>
+        <td>{{i.admin_phone}}</td>
+        <td><img src="{{i.admin_photo.url}}" width="50" height="50" /></td>
+        <td><a href="{% url 'Administrator:delAdmin' i.id %}">Delete</a> 
+             <a href="{% url 'Administrator:Adminupdate' i.id %}">Edit</a></td>
+    </tr>
+    {% endfor %}
+
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+{% extends 'Staff/Header.html' %}
+{% load static %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+        <tr>
+            <td>Product Name</td>
+            <td>Price</td>
+            <td>Quantity</td>
+            <td></td>
+            {% for i in data %}
+            <tr>
+                <td>{{i.product.rawmaterial.rawmaterial}}</td>
+                <td>{{i.booking.price}}</td>
+                <td>{{i.cart_qty}}</td>
+                <td></td>
+            </tr>
+            {% endfor %}
+        </tr>
+    </table>
+</body>
+</html>
+{% endblock content %}

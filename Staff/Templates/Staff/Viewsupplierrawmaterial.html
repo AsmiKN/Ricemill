@@ -1,0 +1,50 @@
+{% extends 'Staff/Header.html' %}
+{% load static %}
+{% block content %}
+
+
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SupplierRawmaterial</title>
+    </head>
+    <body>
+        {% if msg %}
+        <script>
+            alert('{{msg}}')
+            window.location="{% url 'Staff:supplierdetails' %}"
+        </script> 
+        {% endif %}
+    <center><h1>supplier Rawmaterial</h1></center>
+    <table border="1" align="center" cellpadding="10">
+      <tr>
+          <th>Sl.No</th>
+          <th>Rawmaterial</th>
+          <th>Unit</th>  
+          <th>SupplierRate</th>
+          <th>Action</th>
+         
+      </tr>
+      {% for i in data %}
+      <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{i.rawmaterial.rawmaterial}}</td>
+          <td>{{i.unit.unit}}</td>
+          <td>{{i.supraw_rate}}</td>
+         <td><a href="{% url 'Staff:Addcart' i.id %}">Order Now</a></td>
+        
+          
+          
+         
+          
+      </tr>
+      {% endfor %}
+
+  </table>
+
+</body>
+</html>
+{% endblock content %}
+  

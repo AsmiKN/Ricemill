@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+</head>
+<body>
+    
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table align="center">
+            <tr>
+                <td>Category</td>
+                <td>
+                    <select name="sel_category" id="sel_category">
+                        <option value="">...Select...</option>
+                        {% for i in categorydata %}
+                        <option value="{{i.id}}">{{i.category_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Subcategory</td>
+                <td>
+                    <select name="sel_subcategory" id="sel_subcateg">
+                        <option value="">...Select...</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Product</td>
+                <td>
+                    <select name="sel_product" id="sel_product">
+                        <option value="">...Select...</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td><input type="text" name="txtdesc" placeholder="About Product" value="{{editdata.gallery_description}}" required ></td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td><input type="file" name="fileImage"  value="{{editdata.gallery_photo}}" required ></td>
+            </tr>
+            <tr>
+                
+                <td colspan="2" align="center">
+                    <input type="submit" name="btnsubmit" value="Save">
+                    <input type="reset" name="btncancel" value="Cancel">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+
+<table border="1" align="center" cellpadding="10">
+    <tr>
+        <th>Sl.No</th>
+        <th>Category</th>
+        <th>Subcategory</th>
+        <th>Product Name</th>
+        <th>Description</th>
+        <th>Image</th>
+    
+    </tr>
+    {% for i in data %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.product_name.subcategory.category.category_name}}</td>
+        <td>{{i.product_name.subcategory.subcategory_name}}</td>  
+        <td>{{i.product_name.product_name}}</td>
+        <td>{{i.gallery_description}}</td>
+        <td><img src="{{i.gallery_photo.url}}" width="50" height="50"></td>
+    </tr>
+    {% endfor %}
+</table>
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $("#sel_category").change(function () {
+        var did = $(this).val();
+        var ur = "{% url 'Administrator:ajaxsubcategory' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                $("#sel_subcateg").html(data);
+            },
+        });
+    });
+</script>
+
+<script>
+    $("#sel_subcateg").change(function () {
+        var did = $(this).val();
+        var ur = "{% url 'Administrator:ajaxproduct' %}"
+        $.ajax({
+            url: ur,
+            data: { did: did, },
+            success: function (data) {
+                $("#sel_product").html(data);
+            },
+        });
+    });
+</script>

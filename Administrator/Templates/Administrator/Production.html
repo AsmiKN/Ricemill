@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Production</title>
+    </head>
+    <body>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table border="2" align="center">
+                <tr>
+                    <th colspan="4">Production</th>
+                </tr>
+                <tr>
+                <td>Unit</td>
+                <td>
+                    <select name="sel_unit" id="sel_unit">
+                        <option value="">...Select...</option>
+                        {% for i in unitdata %}
+                        <option  value="{{i.id}}">{{i.unit}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                </tr>
+                
+                <tr>
+                <td>Product</td>
+                <td>
+                    <select name="sel_newproduct_name" id="sel_newproduct_name">
+                        <option value="">...Select...</option>
+                        {% for i in productdata %}
+                        <option  value="{{i.id}}">{{i.newproduct_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                </tr>
+                
+                <tr>
+                    <td>Product Date</td>
+                    <td><input type="date" name="txtdate" placeholder="Enter the  Product Date" required value="{{editdata.production_date}}"></td>
+                </tr>
+                <tr>
+                    <td>Quantity</td>
+                    <td><input type="text" name="txtqty" placeholder="Enter the  Product qty" required value="{{editdata.production_qty}}"></td>
+                </tr>
+               
+                    
+                <tr>
+                    <th colspan="4">
+                        <input type="submit" value="Submit">
+                        <input type="reset" value="Cancel">
+                    </th>
+                </tr>
+            </table>
+    </body>
+</html>
+    <table border="1" align="center" cellpadding="10">
+        <tr>
+            <th>Sl.No</th>
+            <th>Unit</th>
+            <th>Product_Name</th>
+            <th>Product Date</th>
+            <th>Quantity</th>
+            <th>Action</th>
+        </tr>
+        {% for i in data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.unit.unit}}</td>
+            <td>{{i.newproduct_name.newproduct_name}}</td>
+            <td>{{i.production_date}}</td>
+            <td>{{i.production_qty}}</td>
+            
+            
+            <td><a href="{% url 'Administrator:delproduction' i.id %}">Delete</a> | <a href="{% url 'Administrator:updateproduction' i.id %}">Edit</a></td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</body>
+</html>
+    </html>

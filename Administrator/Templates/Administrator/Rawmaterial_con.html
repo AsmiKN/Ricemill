@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RAWMATERIAL CONSUMPTION</title>
+    </head>
+    <body>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table border="2" align="center">
+                <tr>
+                    <th colspan="4">Rawmaterial_Consumption</th>
+                </tr>
+                <tr>
+                <td>Unit</td>
+                <td>
+                    <select name="sel_unit" id="sel_unit">
+                        <option value="">...Select...</option>
+                        {% for i in unitdata %}
+                        <option  value="{{i.id}}">{{i.unit}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                </tr>
+                
+                <tr>
+                <td>rawmaterial</td>
+                <td>
+                    <select name="sel_rawmaterial" id="sel_rawmaterial">
+                        <option value="">...Select...</option>
+                        {% for i in rawmaterialdata %}
+                        <option  value="{{i.id}}">{{i.rawmaterial}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                </tr>
+                
+                <tr>
+                    <td>rawcons_qty</td>
+                    <td><input type="text" name="txtqty" placeholder="Enter the  qty" required value="{{editdata.rawcons_qty}}"></td>
+                </tr>
+                <tr>
+                    <td>rawcons_date</td>
+                    <td><input type="date" name="txtdate" placeholder="Enter the  rawcons date" required value="{{editdata.rawcons_date}}"></td>
+                </tr>
+               
+                    <th colspan="4">
+                        <input type="submit" value="Submit">
+                        <input type="reset" value="Cancel">
+                    </th>
+                </tr>
+            </table>
+    </body>
+</html>
+    <table border="1" align="center" cellpadding="10">
+        <tr>
+            <th>Sl.No</th>
+            <th>Unit</th>
+            <th>Rawmaterial</th>
+            <th>Rawconsumption_qty</th>
+            <th>Rawconsumption_date</th>
+            <th>Action</th>
+        </tr>
+        {% for i in data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.unit.unit}}</td>
+            <td>{{i.rawmaterial.rawmaterial}}</td>
+            <td>{{i.rawcons_qty}}</td>
+            <td>{{i.rawcons_date}}</td>
+            <td><a href="{% url 'Administrator:delrawmaterialcons' i.id %}">Delete</a> | <a href="{% url 'Administrator:rawmaterialconsupdate' i.id %}">Edit</a></td>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</body>
+</html>
+    </html>

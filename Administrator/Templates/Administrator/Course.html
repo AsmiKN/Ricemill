@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Registration</title>
+</head>
+<body>
+     <a href="{% url 'Administrator:LoadingHomePage' %}">Home</a>
+    <form method="post" action="">
+         {% csrf_token %} 
+        <table border="2" align="center">
+            <tr>
+                <th colspan="4"> Course Registration  </th>
+            </tr>
+            <tr>
+            <td>Department</td>
+                <td>
+                    <select name="sel_department" id="sel_department">
+                        <option value="">...Select...</option>
+                        {% for i in departmentdata %}
+                        <option 
+                        {% if i.id == editdata.department_id %}
+                        selected
+                        {% endif %}
+                        value="{{i.id}}">{{i.department_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                </tr>
+                
+            <tr>
+                <td> Course:</td>
+                <td><input type="text" name="txtcourse" placeholder="Enter Course Name" required value="{{editdata.course_name}}"></td><br>
+            </tr>
+            <tr>
+                <td>Course Duration:</td>
+                <td><input type="text" name="txtduration" placeholder="Enter Course Duration" required value="{{editdata.course_duration}}"></td><br>
+            </tr>
+            <tr>
+                <td>No of Semester:</td>
+                <td><input type="text" name="txtsemester" placeholder="Enter No of Semester" required value="{{editdata.course_semester}}"></td><br>
+            </tr>
+            <tr>
+                <th colspan="4">
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Cancel">
+                </th>
+            </tr>
+        </table>
+</body>
+<table border="1" align="center" cellpadding="10">
+        <tr>
+            <th>Sl.No</th>
+            <th>Department</th>
+            <th>Course</th>
+            <th>Duration</th>
+            <th>No of Semester</th>
+            <th>Action</th>
+        </tr>
+        {% for i in data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.department.department_name}}</td>
+            <td>{{i.course_name}}</td>
+            <td>{{i.course_duration}}</td>
+            <td>{{i.course_semester}}</td>
+            <td><a href="{% url 'Administrator:delcourse' i.id %}">Delete</a> | <a href="{% url 'Administrator:courseupdate' i.id %}">Edit</a></td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    </html>

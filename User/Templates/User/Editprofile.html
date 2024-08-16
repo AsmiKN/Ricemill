@@ -1,0 +1,34 @@
+</head>
+<body>
+    <div class="container-fluid d-bg-image">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="d-profile">
+            <table class="d-card" style="color: black;" align="center" cellpadding="10px">
+                <tr> 
+                    <td>Name</td>
+                    <td><input type="text" class="textbox" name="txtname" id="" value="{{prodata.newuser_name}}"></td>
+                </tr>
+                <tr>
+                    <td>Contact</td>
+                    <td><input type="text" name="txtcontact" class="textbox" id="" value="{{prodata.newuser_contact}}"></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="email" name="txtemail" class="textbox" id="" value="{{prodata.newuser_email}}"></td>
+                </tr>
+                <tr>
+                    <td colspan="2" align="center"><input class="d-card-button" type="submit" value="Update" name="btnsub"></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+    </div>
+    {% if msg %}
+    <script>
+        alert("{{msg}}")
+        window.location = "{% url 'User:my_pro' %}"
+    </script>
+    {% endif %}
+</body>
+</html>

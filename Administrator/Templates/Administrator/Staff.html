@@ -1,0 +1,175 @@
+{% extends 'Administrator/Header.html' %}
+{% load static %}
+{% block content %}
+
+
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Staff</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+            h1 {
+                text-align: center;
+                margin-top: 20px;
+            }
+            form {
+                width: 80%;
+                margin: 0 auto;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+            input[type="text"],
+            select,
+            input[type="file"] {
+                width: 100%;
+                padding: 8px;
+                margin: 5px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            input[type="submit"],
+            input[type="reset"] {
+                width: 48%;
+                background-color: #505450;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                float: left;
+            }
+            input[type="submit"]:hover,
+            input[type="reset"]:hover {
+                background-color: #404240;
+            }
+            img {
+                max-width: 50px;
+                max-height: 50px;
+            }
+            th, td, input, select {
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body>
+        <center><h1>STAFF DETAILS</h1></center>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <table border="2" align="center">
+                <!-- <tr>
+                    <th colspan="4">Role</th>
+                </tr> -->
+                 <tr>
+            <td>Staff</td>
+                <td>
+                    <select name="sel_role" id="sel_role">
+                        <option value="">...Select...</option>
+                        {% for i in role %}
+                        <option 
+                        {% if i.id == editdata.role_id %}
+                        selected
+                        {% endif %}
+                        value="{{i.id}}">{{i.role_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                </tr>
+                <tr>
+                    <td>Staff Name</td>
+                    <td><input type="text" name="txtname" placeholder="Enter the  Staff Name" required value="{{editdata.staff_name}}"></td>
+                </tr>
+                <tr>
+                    <td>Address</td>
+                    <td><input type="text" name="txtaddress" placeholder="Enter the Address" required value="{{editdata.staff_address}}"></td>
+                </tr>
+                <tr>
+                    <td>Email</td>
+                    <td><input type="text" name="txtemail" placeholder="Enter the Email" required value="{{editdata.staff_email}}"></td>
+                </tr>
+                <tr>
+                    <td>DOJ</td>
+                    <td><input type="date" name="txtdoj" placeholder="Enter the date of joining" required value="{{editdata.staff_doj}}"></td>
+                </tr>
+                <tr>
+                    <td>Phone</td>
+                    <td><input type="tel" name="txtphone" placeholder="Enter the phone number" required value="{{editdata.staff_phone}}"></td>
+                </tr>
+                <tr>
+                    <td>Password</td>
+                    <td><input type="text" name="txtpassword" placeholder="Enter the Password" required value="{{editdata.staff_password}}"></td>
+                </tr>
+                <tr>
+                        <td>Photo</td>
+                        <td><input type="file" name="fileImage"  required ></td>
+                 </tr>
+                <tr>
+                        <td>Proof</td>
+                        <td><input type="file" name="fileImg"  required ></td>
+                </tr>
+                <tr>
+                    <th colspan="4">
+                        <input type="submit" value="Submit">
+                        <input type="reset" value="Cancel">
+                    </th>
+                </tr>
+            </table>
+    </body>
+    </html>
+
+    <table border="1" align="center" cellpadding="10">
+        <tr>
+            <th>SI.No</th>
+            <th>Role</th>
+            <th>Staff Name</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Date of joining</th>
+            <th>Phone</th>
+            <th>Photo</th>
+            <th>Proof</th>
+            <th>Action</th>
+           
+        </tr>
+        {% for i in data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.role.role_name}}</td>
+            <td>{{i.staff_name}}</td>
+            <td>{{i.staff_address}}</td>
+            <td>{{i.staff_email}}</td>
+            <td>{{i.staff_doj}}</td>
+            <td>{{i.staff_phone}}</td>
+            
+            <td><img src="{{i.staff_photo.url}}" width="50" height="50" /></td>
+            <td><img src="{{i.staff_proof.url}}" width="50" height="50" /></td>
+            <td><a href="{% url 'Administrator:delstaff' i.id %}">Delete</a> 
+            <a href="{% url 'Administrator:staffupdate' i.id %}">Edit</a></td>
+        </tr>
+        {% endfor %}
+    
+    </table>
+    {% endblock content %}

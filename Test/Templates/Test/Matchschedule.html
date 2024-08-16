@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matchschedule details</title>
+</head>
+<body>
+     <!-- <a href="{% url 'Administrator:LoadingHomePage' %}">Home</a> -->
+    <form method="post" action="">
+         {% csrf_token %} 
+        <table border="2" align="center">
+            <tr>
+                <th colspan="4"> Matchschedule details  </th>
+            </tr>
+           
+            <tr>
+                <td> Match Name:</td>
+                <td><input type="text" name="txtname" placeholder="Enter Match Name" required value="{{editdata.match_name}}"></td><br>
+            </tr>
+            <tr>
+                <td>Match fromdate:</td>
+                <td><input type="date" name="txtdate" placeholder="Enter fromdate" required value="{{editdata.match_fromdate}}"></td><br>
+            </tr>
+            <tr>
+                <td>Match todate:</td>
+                <td><input type="date" name="txttodate" placeholder="Enter todate" required value="{{editdata.match_todate}}"></td><br>
+            </tr>
+            <tr>
+                <td>Match venue:</td>
+                <td><input type="text" name="txtvenue" placeholder="Enter venue" required value="{{editdata.match_venue}}"></td><br>
+            </tr>
+            <tr>
+                <th colspan="4">
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Cancel">
+                </th>
+            </tr>
+        </table>
+</body>
+<table border="1" align="center" cellpadding="10">
+        <tr>
+            <th>Sl.No</th>
+            <th>Match Name</th>
+            <th>Match fromdate</th>
+            <th>Match todate</th>
+            <th>venue</th>
+            <th>Action</th>
+        </tr>
+        {% for i in data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.match_name}}</td>
+            <td>{{i.match_todate}}</td>
+            <td>{{i.match_fromdate}}</td>
+            <td>{{i.match_venue}}</td>
+            
+            <td><a href="{% url 'Test:delmatchschedule' i.id %}">Delete</a> | <a href="{% url 'Test:matchscheduleupdate' i.id %}">Edit</a></td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    </html>

@@ -1,0 +1,22 @@
+<table border="1" align="center" cellpadding="10">
+    <tr>
+        <th>Sl.No</th>
+        <th>Match Name</th>
+        <th>From date</th>
+        <th>To date</th>
+        <th>Venue</th> 
+        <th>Action</th>   
+    </tr>
+    {% for i in data %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.match_name}}</td>
+        <td>{{i.match_fromdate}}</td>
+        <td>{{i.match_todate}}</td>
+        <td>{{i.match_venue}}</td>  
+        <td><a href="{% url 'Test:ViewXI' i.id %}">View</a></td>
+
+    </tr>
+    {% endfor %}
+
+</table>

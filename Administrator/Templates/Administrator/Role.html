@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %} 
+    <table align="center" border="1">
+        <th colspan="4">ROLE DESCRIPTION</th>
+        <tr>
+            <td>Role Name</td>
+            <td><input type="text" name="txtname" placeholder="Enter the role name" required value="{{editdata.role_name}}"></td>
+        </tr></td>
+        </tr>
+        <tr>
+            <th colspan="4">
+                <input type="submit" value="Save" name="btnsave">  
+                <input type="reset" value="Cancel" name="btncancel">    
+            </th>
+        </tr>
+    </table>
+</form>  
+
+</body>
+</html>
+<table border="1" align="center" cellpadding="10">
+    <tr>
+        <th>Sl.No</th>
+        <th>Name</th>
+        <th>Action</th>
+       
+    </tr>
+    {% for i in data %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.role_name}}</td>
+        <td><a href="{% url 'Administrator:delstaff' i.id %}">Delete</a> 
+        <a href="{% url 'Administrator:updaterole' i.id %}">Edit</a></td>  
+              
+    </tr>
+    {% endfor %}
+
+</table>

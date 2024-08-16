@@ -1,0 +1,77 @@
+{% extends 'Customer/Header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rice Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: stretch;
+        }
+
+        .product-item {
+            flex: 0 0 22%;
+            margin: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            box-sizing: border-box;
+        }
+
+        img {
+            max-width: 50%;
+            height: auto;
+        }
+
+        .center {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    {% if msg %}
+    <script>
+        alert('{{msg}}');
+        window.location="{% url 'Customer:mycart' %}";
+    </script>
+    {% endif %}
+    <h1>Rice Products</h1>
+    <div class="center">
+        <div class="product-container">
+            {% for i in data %}
+            <div class="product-item">
+                <h2>{{ i.newproduct_name }}</h2>
+                <!--<p>Category: {{ i.category.category_name }}</p>-->
+                <!-- <p>Unit: {{ i.unit.unit }}</p> -->
+                <p>Price: {{ i.newproduct_price }}</p>
+                <p>Details: {{ i.newproduct_details }}</p>
+                <img src="{{ i.newproduct_photo.url }}" alt="{{ i.newproduct_name }}"><br>
+                <!--<p>Product Stock: {{ i.newproduct_stock }}</p>-->
+                <a href="{% url 'Customer:Addcart' i.id %}">Add Cart</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
+
+{% endblock content %}

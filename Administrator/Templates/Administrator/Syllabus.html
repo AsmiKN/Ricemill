@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syllabus Details</title>
+</head>
+<body>
+     <a href="{% url 'Administrator:LoadingHomePage' %}">Home</a>
+    <form method="post" action="">
+         {% csrf_token %} 
+        <table border="2" align="center">
+            <tr>
+                <th colspan="4"> Syllabus Details </th>
+            </tr>
+            <tr>
+            <td>Course</td>
+                <td>
+                    <select name="sel_course" id="sel_course">
+                        <option value="">...Select...</option>
+                        {% for i in coursedata %}
+                        <option 
+                        {% if i.id == editdata.course_id %}
+                        selected
+                        {% endif %}
+                        value="{{i.id}}">{{i.course_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                </tr>
+                <tr>
+                <td>Subject</td>
+                <td>
+                    <select name="sel_subject" id="sel_subject">
+                        <option value="">...Select...</option>
+                        {% for i in subjectdata %}
+                        <option 
+                        {% if i.id == editdata.subject_id %}
+                        selected
+                        {% endif %}
+                        value="{{i.id}}">{{i.subject_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                </tr>
+                <tr>
+                <td>Semester</td>
+                <td>
+                    <select name="sel_semester" id="sel_semester">
+                        <option value="">...Select...</option>
+                        {% for i in semesterdata %}
+                        <option 
+                        {% if i.id == editdata.semester_id %}
+                        selected
+                        {% endif %}
+                        value="{{i.id}}">{{i.semester_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+                </tr>
+            <tr>
+                <th colspan="4">
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Cancel">
+                </th>
+            </tr>
+        </table>
+</body>
+<table border="1" align="center" cellpadding="10">
+        <tr>
+            <th>Sl.No</th>
+            <th>Course</th>
+            <th>Subject</th>
+            <th>No of Semester</th>
+            <th>Action</th>
+        </tr>
+        {% for i in data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.course.course_name}}</td>
+            <td>{{i.subject.subject_name}}</td>
+            <td>{{i.semester.semester_name}}</td>
+            <td><a href="{% url 'Administrator:delsyllabus' i.id %}">Delete</a> | <a href="{% url 'Administrator:syllabusupdate' i.id %}">Edit</a></td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    </html>

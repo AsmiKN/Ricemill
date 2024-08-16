@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Place</title>
+</head>
+<body>
+    <!-- <a href="{% url 'Administrator:LoadingHomePage' %}">Home</a> -->
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table border="2" align="center">
+            <tr>
+                <th colspan="4">Player details</th>
+            </tr>
+            <tr>
+                <td>Category</td>
+                <td>
+                    <select name="sel_playercategory" id="sel_playercategory">
+                        <option value="">...Select...</option>
+                        {% for i in playercategorydata %}
+                        <option 
+                        {% if i.id == editdata.playercategory_id %}
+                        selected
+                        {% endif %}
+                        value="{{i.id}}">{{i.playercategory_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Player Name</td>
+                <td><input type="text" name="txtname" placeholder="Enter the Player Name" required value="{{editdata.player_name}}"></td>
+            </tr>
+            <tr>
+                <td>Player DOB</td>
+                <td><input type="date" name="txtdob" placeholder="Enter the Player Name" required value="{{editdata.player_name}}"></td>
+            </tr>
+            <tr>
+                <td>photo</td>
+                <td><input type="file" name="fileImage"  value="{{editdata.gallery_photo}}" required ></td>
+            </tr>
+            <td>Team</td>
+                <td>
+                    <select name="sel_team" id="sel_team">
+                        <option value="">...Select...</option>
+                        {% for i in teamdata %}
+                        <option 
+                        {% if i.id == editdata.team_id %}
+                        selected
+                        {% endif %}
+                        value="{{i.id}}">{{i.team_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                
+                <td colspan="2" align="center">
+                    <input type="submit" name="btnsubmit" value="Save">
+                    <input type="reset" name="btncancel" value="Cancel">
+                </td>
+            </tr>
+        </table>
+    </form>
+
+    <table border="1" align="center" cellpadding="10">
+        <tr>
+            <th>Sl.No</th>
+            <th>player category</th>
+            <th>player name</th>
+            <th>player dob</th>
+            <th>Team ID</th>
+            <th>image</th>
+            <th>action</th>
+        </tr>
+        <tr>
+            {% for i in data %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.playercategory.playercategory_name}}</td>
+        <td>{{i.playerdetails_name}}</td>
+        <td>{{i.playerdetails_dob}}</td>
+        <td><img src="{{i.playerdetails_photo.url}}" width="50" height="50" /></td>
+        <td>{{i.team.team_name}}</td>
+        <td><a href="{% url 'Test:delplayerdetails' i.id %}">Delete</a> | <a href="{% url 'Test:playerdetailsupdate' i.id %}">Edit</a></td>
+    </tr>
+        </tr>
+        {% endfor %}
+
+    </table>
+
+</body>
+</html>

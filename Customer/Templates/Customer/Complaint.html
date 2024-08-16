@@ -1,0 +1,63 @@
+{% extends 'Customer/Header.html' %}
+{% load static %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+              <meta charset="UTF-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <title>complaint</title>
+</head>
+<body>
+
+              <form method="POST">
+                            {% csrf_token %}
+                            <center><h1>POST COMPLAINT</h1></center>
+                            <table align="center" border="1">
+                              <tr>
+                                    <td>Title</td>
+                                    <td><input type="text" name="title" required placeholder="Enter the title"></td>
+                              </tr>
+                              <tr>
+                                          <td>Complaint</td>
+                                          <td><textarea name="complaint" required placeholder="Enter the complaint"></textarea></td>
+                                    </tr>
+                              <tr>
+                                 <th colspan="4">
+                                    <input type="submit" value="Save" name="btnsave">
+                                    <input type="reset" value="Cancel" name="btncancel">
+                                 </th>  
+                              </tr>
+                            </table>
+                            <table align="center" cellpadding="10" border="1" width="75%" >
+                              <!-- <tr>
+                                  <th colspan="7"><font size="5">View Complaint</font></th>
+                              </tr>
+                              <tr>
+                                  <th>Sl No</th>
+                                  <th>Title</th>
+                                  <th>Complaint</th>
+                                  <th>Date</th>
+                                  <th>Reply</th>
+                                  <th>Reply Date</th>
+                                  <th>Action</th>
+                              </tr>
+                              {% for i in data %}
+                              <tr>
+                                  <td>{{forloop.counter}}</td>
+                                  <td>{{i.complaint_title}}</td>
+                                  <td>{{i.complaint_details}}</td>
+                                  <td>{{i.complaint_postdate}}</td>
+                                  <td>{{i.complaint_reply}}</td>
+                                  <td>{{i.complaint_replydate}}</td>
+                                  <td><a href="{% url 'Customer:delComplaint' i.id %}">Delete</a></td>
+                              </tr>
+                              {% endfor %}
+                          </table>
+                      
+              </form>    
+</body>
+</html> -->
+{% endblock content %}

@@ -1,0 +1,96 @@
+{% extends 'Administrator/Header.html' %}
+{% load static %}
+{% block content %}
+
+
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SupplierRawmaterial</title>
+    </head>
+    <body>
+    <!-- <center><h1>SUPPLIER RAWMATERIAL</h1></c<!DOCTYPE html> -->
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>SupplierRawmaterial</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    background-color: #f9f9f9;
+                    margin: 0;
+                    padding: 0;
+                }
+        
+                h1 {
+                    text-align: center;
+                    color: #333;
+                }
+        
+                table {
+                    width: 80%;
+                    margin: 20px auto;
+                    border-collapse: collapse;
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+                }
+        
+                th, td {
+                    padding: 10px;
+                    text-align: left;
+                    border-bottom: 1px solid #ddd;
+                }
+        
+                th {
+                    background-color: #f2f2f2;
+                    font-weight: bold;
+                }
+        
+                tr:nth-child(even) {
+                    background-color: #f9f9f9;
+                }
+        
+                tr:hover {
+                    background-color: #f2f2f2;
+                }
+        
+                td {
+                    color: #333;
+                }
+        
+                td:first-child {
+                    font-weight: bold;
+                }
+        
+                td:last-child {
+                    text-align: center;
+                }
+            </style>
+        </head>
+        <body>
+            <center><h1>SUPPLIER RAW MATERIAL</h1></center>
+            <table border="1" align="center" cellpadding="10">
+                <tr>
+                    <th>Sl.No</th>
+                    <th>Raw Material</th>
+                    <th>Unit</th>  
+                    <th>Supplier Rate</th>
+                </tr>
+                {% for i in data %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.rawmaterial.rawmaterial}}</td>
+                    <td>{{i.unit.unit}}</td>
+                    <td>{{i.supraw_rate}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+       
+
+
+
+</body>
+</html>
+{% endblock content %} 

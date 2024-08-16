@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View User</title>
+</head>
+<body>
+    <a href="{% url 'Administrator:LoadingHomePage'  %}">Home</a>
+
+</body>
+</html>
+
+<table border="1" align="center" cellpadding="10">
+    <tr>
+        <th>Sl.No</th>
+        <th>Name</th>
+        <th>Gender</th>
+
+        <th>District</th>
+        <th>Place</th>
+        <th>Contact</th>
+        <th>Email</th>
+        <th>Password</th>
+        <th>Photo</th>
+        <th>Proof</th>
+
+        
+    </tr>
+    {% for i in data %}
+    <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{i.user_name}}</td>
+        <td>{{i.user_gender}}</td>
+        <td>{{i.place.district.district_name}}</td>
+        <td>{{i.place.place_name}}</td>
+        <td>{{i.user_contact}}</td>
+        <td>{{i.user_email}}</td>
+        <td>{{i.user_password}}</td>
+        <td><img src="{{i.user_photo.url}}" width="50" height="50"></td>
+        <td><img src="{{i.user_proof.url}}" width="50" height="50"></td>
+        <td><a href="{% url 'Administrator:acceptuser' i.id %}">Accept</a></td>
+
+    </tr>
+    {% endfor %}
+
+</table>

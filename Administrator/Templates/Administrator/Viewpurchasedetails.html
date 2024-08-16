@@ -1,0 +1,122 @@
+{% extends 'Administrator/Header.html' %}
+{% load mathfilters %}
+{% block content %}
+
+
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>PURCHASE DETAILS</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+            h1 {
+                text-align: center;
+                margin-top: 20px;
+            }
+            form {
+                width: 80%;
+                margin: 0 auto;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+            input[type="text"],
+            select,
+            input[type="file"] {
+                width: 100%;
+                padding: 8px;
+                margin: 5px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+            input[type="submit"],
+            input[type="reset"] {
+                width: 48%;
+                background-color: #505450;
+                color: white;
+                padding: 14px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                float: left;
+            }
+            input[type="submit"]:hover,
+            input[type="reset"]:hover {
+                background-color: #404240;
+            }
+            img {
+                max-width: 50px;
+                max-height: 50px;
+            }
+            th, td, input, select {
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body>
+    <center><h1>PURCHASE DETAILS</h1></center>
+    <table border="1" align="center" cellpadding="10">
+
+<tr>
+    
+        <th>Slno</th>
+        <th>Product Name</th>
+        <th>Image</th>
+        <th>Quatity</th>   
+        <th>Total amount</th>
+        <th>Action</th>
+    </tr>
+
+
+    {%  for i in Data %}
+    <tr>
+      <td>{{forloop.counter}}</td>
+      <td>{{i.product.newproduct_name}}</td>
+      <td><img src="{{i.product.newproduct_photo.url}}" width="50" height="50"></td>
+      <td>{{i.cart_qty}}</td>
+      <td>{{i.product.newproduct_price|mul:i.cart_qty}}</td>
+     
+      <td> 
+      {% if i.ship_status == 0 %}
+          <a href="{% url 'Administrator:updateproductbooking' i.id  %}">Not Packed</a>
+      {% elif i.ship_status == 1 %}
+          <a href="{% url 'Administrator:updateproductbooking' i.id  %}">Pack Product</a>
+      {% elif i.ship_status == 2 %}
+          <a href="{% url 'Administrator:updateproductbooking' i.id  %}">Shiped</a>
+      {% elif i.ship_status == 3 %}
+          <a href="{% url 'Administrator:updateproductbooking' i.id  %}">Out of Delivery</a>
+      {% elif i.ship_status == 4 %}
+          <a href="{% url 'Administrator:updateproductbooking' i.id  %}">Delivered</a>
+      {% elif i.ship_status == 5 %}
+          Order Compeleted
+      {% else %}
+      Error
+      {% endif %}
+  </td>     
+</tr>
+{% endfor %}
+</table>
+</form>
+{% endblock content %}

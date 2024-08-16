@@ -1,0 +1,163 @@
+{% extends 'Administrator/Header.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewProduct</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        form {
+            width: 80%;
+            margin: 0 auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        input[type="text"],
+        select,
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"],
+        input[type="reset"] {
+            width: 48%;
+            background-color: #505450;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: left;
+        }
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background-color: #404240;
+        }
+        img {
+            max-width: 50px;
+            max-height: 50px;
+        }
+        th, td, input, select {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>PRODUCT DETAILS</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>Category</td>
+                <td>
+                    <select name="sel_category" id="sel_category">
+                        <option value="">...Select...</option>
+                        {% for i in categorydata %}
+                        <option value="{{i.id}}">{{i.category_name}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Unit</td>
+                <td>
+                    <select name="sel_unit" id="sel_unit">
+                        <option value="">...Select...</option>
+                        {% for i in unitdata %}
+                        <option value="{{i.id}}">{{i.unit}}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>Product Name</td>
+                <td><input type="text" name="txtproduct" placeholder="Enter the Product Name" required value="{{editdata.product_name}}"></td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td><input type="text" name="txtprice" placeholder="Enter the Product price" required value="{{editdata.product_price}}"></td>
+            </tr>
+            <tr>
+                <td>Details</td>
+                <td><input type="text" name="txtdetails" placeholder="Enter the Product details" required value="{{editdata.product_details}}"></td>
+            </tr>
+            <tr>
+                <td>Product Stock</td>
+                <td><input type="text" name="txtstock" placeholder="Enter the Product stock details" required value="{{editdata.product_stock}}"></td>
+            </tr>
+            <tr>
+                <td>Photo</td>
+                <td><input type="file" name="fileImage" required></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="Submit">
+                    <input type="reset" value="Cancel">
+                </td>
+            </tr>
+        </table>
+    </form>
+    <table>
+        <tr>
+            <th>Sl.No</th>
+            <th>Category</th>
+            <th>Unit</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Details</th>
+            <th>Photo</th>
+            <th>Product Stock</th>
+            <th>Action</th>
+        </tr>
+        {% for i in data %}
+        <tr>
+            <td>{{forloop.counter}}</td>
+            <td>{{i.category.category_name}}</td>
+            <td>{{i.unit.unit}}</td>
+            <td>{{i.newproduct_name}}</td>
+            <td>{{i.newproduct_price}}</td>
+            <td>{{i.newproduct_details}}</td>
+            <td><img src="{{i.newproduct_photo.url}}"></td>
+            <td>{{i.total_stock}}</td>
+            <td>
+                <a href="{% url 'Administrator:delnewproduct' i.id %}">Delete</a> 
+                <a href="{% url 'Administrator:newproductupdate' i.id %}">Edit</a>
+                <a href="{% url 'Administrator:addstock' i.id %}">Add Stock</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
+{% endblock content %}
